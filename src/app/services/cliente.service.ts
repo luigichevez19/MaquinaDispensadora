@@ -26,28 +26,58 @@ getclientes() { // guarda los elementos en la varible 'clientes'
 
 // crear un nuevo clienteo  , recibiendo un parametro de tipo cliente
 insertcliente(cliente: Cliente) {
-  // agregar un dato al final de la lista, como recibe un objeto del tipo cliente , puede acceder a sus propiedades
-  this.clienteList.push({
+  if(this.validation(cliente))
+  {
+    this.clienteList.push({
     name: cliente.name,
     lastName: cliente.lastName,
     bordDate: cliente.bordDate,
     dui: cliente.dui
-  });
+    });
+  }     
 }
 
 // Actualiza un clienteo, recibiendo un parametro de tipo cliente
 updatecliente(cliente: Cliente) {
-  // Utilizando el metodo update de firebase , se envia clave y los parametros que va actualizar 
-  this.clienteList.update(cliente.$key, {
-    name: cliente.name,
-    lastName: cliente.lastName,
-    bordDate: cliente.bordDate,
-    dui: cliente.dui
-  
-  });
+  //Metodo validacion y metodo para firebase
+  if(this.validation(cliente))
+  { 
+    this.clienteList.update(cliente.$key, {
+      name: cliente.name,
+      lastName: cliente.lastName,
+      bordDate: cliente.bordDate,
+      dui: cliente.dui
+    
+    });
+  }  
 }
 
-// Elimina un clienteo, recibiendo como parametro la clave , utilizando el metodo remove de firebase
+validation(cliente: Cliente)
+{
+  var hoy = new Date();
+  var cumpleanos = new Date(cliente.bordDate);
+  var edad = hoy.getFullYear() - cumpleanos.getFullYear();
+  var m = hoy.getMonth() - cumpleanos.getMonth();
+  var esta= null;
+  if (m < 0 || (m === 0 && hoy.getDate() < cumpleanos.getDate())) {
+      edad--;
+  }
+  if(edad >=18)
+  {
+      if(cliente.dui.match("^\\d{8}-\\d$")){
+          esta = true; }
+          else
+          {
+            this.toastr.warning('Info', 'El dui no esta escrito correctamente ');
+          }
+  }
+  else
+  {
+    this.toastr.warning('Info', 'Tiene que ser mayor de edad');
+  }
+    return esta;
+}
+// Elimina un cliente, recibiendo como parametro la clave , utilizando el metodo remove de firebase
 deletecliente($key: string) {
   this.clienteList.remove($key);
 }
