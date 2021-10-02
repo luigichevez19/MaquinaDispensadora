@@ -1,0 +1,26 @@
+<div class="card">
+    <div class="card-body">
+        <h6 class="text-center">
+            Lista Productos
+        </h6>
+        <table class="table table-sm table-hover">
+            <tbody>
+                <tr *ngFor="let cliente of clienteList">
+                    <td>{{cliente.$key}}</td>              
+                    <td>{{cliente.name}}</td>
+                    <td>{{cliente.lastName}}</td>
+                    <td>{{cliente.bordDate}}</td>
+                    <td>{{cliente.dui}}</td>
+                    <td>
+                        <a class="btn btn-secondary text-white" (click)="onEdit(cliente)">
+                            <i class="far fa-edit"></i>
+                        </a>
+                        <a class="btn btn-danger text-white" (click)="onDelete(cliente.$key)">
+                            <i class="fas fa-trash-alt"></i>
+                        </a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

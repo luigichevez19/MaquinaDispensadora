@@ -1,0 +1,43 @@
+<div class="card mt-5">
+    <div class="card-body">
+
+        <!-- Cuando el evento onSubmit , suceda se va pasar todo el formulario 'clienteForm' -->
+        <form #clienteForm="ngForm" (ngSubmit)="onSubmit(clienteForm)">
+
+            <!-- TO UPDATE -->
+            <input type="hidden" name="$key" #$key="ngModel" [(ngModel)]="clienteService.selectedcliente.$key">
+
+            <div class="form-group">
+                <input type="text" class="form-control" name="name" #name="ngModel"
+                    [(ngModel)]="clienteService.selectedcliente.name" placeholder="Nombre">
+            </div>
+
+            <div class="form-group">
+                <input type="text" class="form-control" name="lastName" #lastName="ngModel"
+                    [(ngModel)]="clienteService.selectedcliente.lastName" placeholder="Apellidos">
+            </div>
+
+            <div class="form-group">
+                <input type="date" class="form-control" name="bordDate" #bordDate="ngModel"
+                    [(ngModel)]="clienteService.selectedcliente.bordDate" placeholder="Fecha de nacimiento"  >
+            </div>
+            
+            <div class="form-group">
+                <div class="input-group">
+                   
+                    <input type="text" class="form-control" name="dui" #dui="ngModel"
+                        [(ngModel)]="clienteService.selectedcliente.dui" placeholder="Dui" pattern="^[0-9]{8}[-]{1}[0-9]{1}" title="El formato debe coincidir con 3 letras mayúsculas y 4 números." required>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <button class="btn btn-primary" type="submit">
+                    <i class="fas fa-plus-circle"></i> Guardar Cliente
+                </button>
+                <button class="btn btn-secondary" type="reset" (click)="resetForm(clienteForm)">
+                    <i class="fas fa-sync-alt"></i> Reiniciar
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
