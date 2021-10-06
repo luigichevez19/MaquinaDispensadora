@@ -1,8 +1,16 @@
+
 <div class="card">
     <div class="card-body">
         <h6 class="text-center">
             Lista Productos
         </h6>
+        <div class="btn-group">
+            <input type="text" class="form-control" placeholder="buscar Dui" id="buscar" [(ngModel)]='buscar'>
+            <button class="btn btn-primary"  (click)="consulClie();">Buscar</button>
+            <button class="btn btn-secondary" type="reset" (click)="mostrarRegistros()">
+                <i class="fas fa-sync-alt"></i> Recargar
+            </button>
+        </div> 
         <table class="table table-striped">
             <tbody>
                 <tr *ngFor="let cliente of clienteList">
@@ -12,7 +20,7 @@
                     <td>{{cliente.bordDate}}</td>
                     <td>{{cliente.dui}}</td>
                     <td>
-                        <a class="btn btn-secondary text-white" (click)="onEdit(cliente,null)">
+                        <a class="btn btn-secondary text-white" (click)="onEdit(cliente)">
                             <i class="far fa-edit"></i>
                         </a>
                         <a class="btn btn-danger text-white" (click)="onDelete(cliente.$key)">

@@ -42,23 +42,35 @@ export class CuentasListComponent implements OnInit {
      this.clienteList.push(x as cliente);
   */
   ngOnInit() {
-this.mostrarcuenta();  
+  this.mostrarcuenta();
   }
   mostrarcuenta(){
-    return this.cuentaService.getCuentas()
+    return this.cuentaService.getCuentas ()
+    .snapshotChanges().subscribe(item => {
+      this.cuentaList = [];
+      item.forEach(element => {
+        let x = element.payload.toJSON();
+        x["$key"] = element.key;
+        
+       this.clienteService.getclientes()
       .snapshotChanges().subscribe(item => {
-        this.cuentaList = [];
+        this.clienteList = [];
         item.forEach(element => {
-          let x = element.payload.toJSON();
-          x["$key"] = element.key;
-          this.cuentaList.push(x as Cuenta);
+          let x2 = element.payload.toJSON();
+          x2["$key"] = element.key;
+          if(x["idCliente"]== x2["$key"])
+          {
+           x["nombre"]= x2["name"]+" "+x2["lastName"]
+          }
+          this.clienteList.push(x2 as Cliente);
         });
       });
-
+        this.cuentaList.push(x as Cuenta);
+      });
+    });
   }
 
   combox(){
-
     return this.clienteService.getclientes()
       .snapshotChanges().subscribe(item => {
         this.clienteList = [];
@@ -75,7 +87,6 @@ this.mostrarcuenta();
   */
   onEdit(cuenta: Cuenta) {
     this.cuentaService.selectedcuenta = Object.assign({}, cuenta);
-    //this.cuentaService.selectedcliente = Object.assign({},cliente);
   }
 
   /* 

@@ -14,7 +14,7 @@ import { Cuenta } from 'src/app/models/cuenta';
 })
 export class ClienteListComponent implements OnInit {
   clienteList: Cliente[];
-
+  buscar:string;
   constructor(
     private clienteService: ClienteService,
     private toastr: ToastrService
@@ -37,7 +37,25 @@ export class ClienteListComponent implements OnInit {
      this.clienteList.push(x as cliente);
   */
   ngOnInit() {
+   this.mostrarRegistros();
+  }
+  mostrarRegistros()
+  { 
     return this.clienteService.getclientes()
+    .snapshotChanges().subscribe(item => {
+      this.clienteList = [];
+      item.forEach(element => {
+        let x = element.payload.toJSON();
+        x["$key"] = element.key;
+        this.clienteList.push(x as Cliente);
+      });
+    });
+
+  }
+  consulClie(){
+    
+
+    this.clienteService.getclientes()
       .snapshotChanges().subscribe(item => {
         this.clienteList = [];
         item.forEach(element => {
@@ -45,16 +63,23 @@ export class ClienteListComponent implements OnInit {
           x["$key"] = element.key;
           this.clienteList.push(x as Cliente);
         });
+
+        this.clienteList = this.clienteList.filter(data => {
+          return data.dui.toString().trim() === this.buscar;
+        })
+  
+        if(this.clienteList.length === 0){
+          this.toastr.warning('Registro no encontrado', 'Advertencia');
+          this.mostrarRegistros();
+        }
       });
   }
-
   /* 
    Recibe una varible de tipo 'cliente' para invocar el servicio de firebase, para actualizarlo
    Para no ocupar el doble enlace de datos ' [(ngModel)]' , se va utilizar 'Object.assign({}, cliente)'  
   */
-  onEdit(cliente: Cliente, cuenta : Cuenta) {
-    cuenta.nombre='${cliente.lastName},${cliente.name}';
-    this.clienteService.selectedcliente = Object.assign({}, cliente,cuenta);
+  onEdit(cliente: Cliente) {
+    this.clienteService.selectedcliente = Object.assign({}, cliente);
   }
 
   /* 

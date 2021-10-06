@@ -9,12 +9,12 @@
 
             <div class="form-group">
                 <input type="text" class="form-control" name="name" #name="ngModel"
-                    [(ngModel)]="clienteService.selectedcliente.name" placeholder="Nombre">
+                    [(ngModel)]="clienteService.selectedcliente.name" placeholder="Nombre" required>
             </div>
 
             <div class="form-group">
                 <input type="text" class="form-control" name="lastName" #lastName="ngModel"
-                    [(ngModel)]="clienteService.selectedcliente.lastName" placeholder="Apellidos">
+                    [(ngModel)]="clienteService.selectedcliente.lastName" placeholder="Apellidos" required>
             </div>
 
             <div class="form-group">
@@ -26,7 +26,7 @@
                 <div class="input-group">
                    
                     <input type="text" class="form-control" name="dui" #dui="ngModel"
-                        [(ngModel)]="clienteService.selectedcliente.dui" placeholder="Dui" >
+                        [(ngModel)]="clienteService.selectedcliente.dui" placeholder="Dui" required>
                 </div>
             </div>
 

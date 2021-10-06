@@ -6,6 +6,7 @@ import { AngularFireDatabase, AngularFireList } from '@angular/fire/database';
 import { Cliente } from '../models/cliente';
 // toastr
 import { ToastrService } from 'ngx-toastr';
+import { escapeRegExp } from '@angular/compiler/src/util';
 
 //import { collection, addDoc } from "firebase/firestore"; 
 @Injectable({
@@ -14,7 +15,8 @@ import { ToastrService } from 'ngx-toastr';
 export class ClienteService {
 // Traer los datos de firebase
 clienteList: AngularFireList<any>;
-
+clienteList2: Cliente[];
+estado:Boolean;
 // Una variable temporal, para guardar los datos seleccionados, del tipo cliente
 selectedcliente: Cliente = new Cliente();
 
@@ -24,32 +26,40 @@ constructor(private firebase: AngularFireDatabase,public toastr: ToastrService) 
 getclientes() { // guarda los elementos en la varible 'clientes'
   return this.clienteList = this.firebase.list('clientes');
 }
+consulClie(clien:Cliente){
+  this.getclientes()
+    .snapshotChanges().subscribe(item => {
+      this.clienteList2 = [];
+      item.forEach(element => {
+        let x = element.payload.toJSON();
+        x["$key"] = element.key;
+        this.clienteList2.push(x as Cliente);
+      });
 
-insert()
-{
-  
-
-/*try {
-  const docRef = await addDoc(collection(db, "users"), {
-    first: "Ada",
-    last: "Lovelace",
-    born: 1815
-  });
-  console.log("Document written with ID: ", docRef.id);
-} catch (e) {
-  console.error("Error adding document: ", e);
-}*/
+      this.clienteList2 = this.clienteList2.filter(data => {
+         if(data.dui.toString().trim() === clien.dui)this.estado=false;
+      })
+      if(this.clienteList2.length === 0){
+       
+       this.estado=true;
+      }
+    });
+    return this.estado;
 }
 // crear un nuevo clienteo  , recibiendo un parametro de tipo cliente
 insertcliente(cliente: Cliente) {
+  
   if(this.validation(cliente))
   {
-    this.clienteList.push({
-    name: cliente.name,
-    lastName: cliente.lastName,
-    bordDate: cliente.bordDate,
-    dui: cliente.dui
-    });
+    if(this.consulClie(cliente))
+    {
+      this.clienteList.push({
+      name: cliente.name,
+      lastName: cliente.lastName,
+      bordDate: cliente.bordDate,
+      dui: cliente.dui
+      });
+    }else{ this.toastr.warning('El dui ya esta registrado', 'Advertencia');}
   }     
 }
 
@@ -62,7 +72,7 @@ updatecliente(cliente: Cliente) {
       name: cliente.name,
       lastName: cliente.lastName,
       bordDate: cliente.bordDate,
-      dui: cliente.dui
+     // dui: cliente.dui
     
     });
   }  
@@ -79,13 +89,14 @@ validation(cliente: Cliente)
       edad--;
   }
   if(edad >=18)
-  {
-      if(cliente.dui.match("^\\d{8}-\\d$")){
+  {    
+        if(cliente.dui.match("^\\d{8}-\\d$")){
           esta = true; }
-          else
+          else 
           {
             this.toastr.warning('Info', 'El dui no esta escrito correctamente ');
           }
+     
   }
   else
   {

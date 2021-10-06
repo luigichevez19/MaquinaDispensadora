@@ -1,6 +1,6 @@
 export class Cuenta {
     $key: string;
-    idClie: string;
+    idCliente: string;
     saldo: number;
-    nombre: string;
+    nombre:string;
 }

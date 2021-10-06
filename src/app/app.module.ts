@@ -30,6 +30,7 @@ import { CuentasComponent } from './components/cuenta/cuentas/cuentas.component'
 import { ProductosComponent } from './components/productos/productos.component';
 import { ProductoListComponent } from './components/productos/producto-list/producto-list.component';
 import { ProductoComponent } from './components/productos/producto/producto.component';
+import { AppRoutingModule } from './app-routing.module';
 @NgModule({
   declarations: [
     AppComponent,
@@ -52,7 +53,8 @@ import { ProductoComponent } from './components/productos/producto/producto.comp
     ToastrModule.forRoot(),
     BrowserAnimationsModule,
     AngularFireModule,
-    AngularFireStorageModule
+    AngularFireStorageModule,
+    AppRoutingModule
   ],
   providers: [ClienteService],
   bootstrap: [AppComponent]

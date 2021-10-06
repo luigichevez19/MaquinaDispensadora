@@ -23,8 +23,8 @@ export class CuentaService {
   getCuentas() { // guarda los elementos en la varible 'Cuentas'
     return this.cuentaList = this.firebase.list('cuentas');
   }
+  
   clienteList: AngularFireList<any>;
-
 // Una variable temporal, para guardar los datos seleccionados, del tipo cliente
 selectedcliente: Cliente = new Cliente();
 
@@ -36,14 +36,11 @@ getclientes() { // guarda los elementos en la varible 'clientes'
   // crear un nuevo Cuentao  , recibiendo un parametro de tipo Cuenta
   insertCuenta(cuenta: Cuenta) {
   //  if(this.validation(Cuenta))
-    {
-      this.cuentaList.push({
-      idcliente: cuenta.idClie,
-      saldo: cuenta.saldo,
-      });
-    }
-    this.toastr.success('Info', 'Save');     
-    this.cuentaList
+    
+  this.cuentaList.push({
+    idCliente: cuenta.idCliente,
+    saldo:cuenta.saldo
+    });  
   }
   
   // Actualiza un Cuentao, recibiendo un parametro de tipo Cuenta
@@ -52,7 +49,7 @@ getclientes() { // guarda los elementos en la varible 'clientes'
     //if(this.validation(cuenta))
     { 
       this.cuentaList.update(cuenta.$key, {
-        idCliente: cuenta.idClie,
+        idCliente: cuenta.idCliente,
         saldo: cuenta.saldo     
       });
     }  

@@ -8,9 +8,8 @@
             <input type="hidden" name="$key" #$key="ngModel" [(ngModel)]="cuentaService.selectedcuenta.$key">
 
                  <div class="form-group">
-                   <select class="form-select form-select-lg mb-3"  #idClie="ngModel" [(ngModel)]="cuentaService.selectedcuenta.idClie" name="idClie">
-                  <option value="" selected>Seleccione una opción</option>
-                  <option *ngFor="let cliente of clienteList" [value]="cliente.$key">
+                   <select class="form-select form-select-lg mb-3"  name="idCliente" #idCliente="ngModel" [(ngModel)]="cuentaService.selectedcuenta.idCliente"  >
+                  <option *ngFor="let cliente of clienteList" [value]="cliente.$key"  >
                     {{cliente.lastName}},{{cliente.name}}
                   </option>
                 </select>
