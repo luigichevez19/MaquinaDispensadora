@@ -34,7 +34,7 @@ export class ClienteComponent implements OnInit {
     {
       this.clienteService.updatecliente(clienteForm.value);
     }     
-      if (clienteForm.value.dui.match("^\\d{8}-\\d$")  )
+      if (this.clienteService.validation(clienteForm.value) )
       {
          this.resetForm(clienteForm);
       }

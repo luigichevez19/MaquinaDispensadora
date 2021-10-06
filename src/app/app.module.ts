@@ -6,9 +6,11 @@ import { FormsModule } from '@angular/forms';
 import { environment } from '../environments/environment';
 import { AngularFireModule } from '@angular/fire';
 import { AngularFireDatabaseModule } from '@angular/fire/database';
+import { AngularFireAuthModule } from "@angular/fire/auth";
 
-//import { AngularFirestoreModule } from '@angular/fire/firestore';
-//import { AngularFireStorageModule } from '@angular/fire/storage';
+
+import { AngularFirestoreModule } from '@angular/fire/firestore';
+import { AngularFireStorageModule } from '@angular/fire/storage';
 //import { AngularFireAuthModule } from '@angular/fire/auth';
 
 import { AppComponent } from './app.component';
@@ -22,12 +24,25 @@ import { ClienteService } from './services/cliente.service';
 // Toastr, para notificaciones en angular
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
+import { CuentaComponent } from './components/cuenta/cuenta.component';
+import { CuentasListComponent } from './components/cuenta/cuentas-list/cuentas-list.component';
+import { CuentasComponent } from './components/cuenta/cuentas/cuentas.component';
+import { ProductosComponent } from './components/productos/productos.component';
+import { ProductoListComponent } from './components/productos/producto-list/producto-list.component';
+import { ProductoComponent } from './components/productos/producto/producto.component';
 @NgModule({
   declarations: [
     AppComponent,
     ClientesComponent,
     ClienteListComponent,
-    ClienteComponent
+    ClienteComponent,
+    CuentaComponent,
+    CuentasListComponent,
+    CuentasComponent,
+    ProductosComponent,
+    ProductoListComponent,
+    ProductoComponent,
+  
   ],
   imports: [
     BrowserModule,
@@ -35,7 +50,9 @@ import { ToastrModule } from 'ngx-toastr';
     AngularFireDatabaseModule,
     FormsModule,
     ToastrModule.forRoot(),
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    AngularFireModule,
+    AngularFireStorageModule
   ],
   providers: [ClienteService],
   bootstrap: [AppComponent]

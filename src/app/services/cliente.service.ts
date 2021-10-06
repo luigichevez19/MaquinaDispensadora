@@ -7,6 +7,7 @@ import { Cliente } from '../models/cliente';
 // toastr
 import { ToastrService } from 'ngx-toastr';
 
+//import { collection, addDoc } from "firebase/firestore"; 
 @Injectable({
   providedIn: 'root'
 })
@@ -24,6 +25,21 @@ getclientes() { // guarda los elementos en la varible 'clientes'
   return this.clienteList = this.firebase.list('clientes');
 }
 
+insert()
+{
+  
+
+/*try {
+  const docRef = await addDoc(collection(db, "users"), {
+    first: "Ada",
+    last: "Lovelace",
+    born: 1815
+  });
+  console.log("Document written with ID: ", docRef.id);
+} catch (e) {
+  console.error("Error adding document: ", e);
+}*/
+}
 // crear un nuevo clienteo  , recibiendo un parametro de tipo cliente
 insertcliente(cliente: Cliente) {
   if(this.validation(cliente))

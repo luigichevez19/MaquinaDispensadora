@@ -1,0 +1,23 @@
+<div class="card">
+    <div class="card-body">
+        <h6 class="text-center">
+            Lista Productos
+        </h6>
+        <table class="table table-striped">
+            <tbody>
+                <tr *ngFor="let cuenta of cuentaList">
+                   
+                    <td>{{cuenta.saldo}}</td>
+                    <td>
+                        <a class="btn btn-secondary text-white" (click)="onEdit(cuenta)">
+                            <i class="far fa-edit"></i>
+                        </a>
+                        <a class="btn btn-danger text-white" (click)="onDelete(cuenta.$key)">
+                            <i class="fas fa-trash-alt"></i>
+                        </a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

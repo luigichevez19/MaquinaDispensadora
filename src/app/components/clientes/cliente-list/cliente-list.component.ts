@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 // model
 import { Cliente } from '../../../models//cliente';
-
 // service
 import { ClienteService } from '../../../services/cliente.service';
 
 // toastr
 import { ToastrService } from 'ngx-toastr';
+import { Cuenta } from 'src/app/models/cuenta';
 @Component({
   selector: 'app-cliente-list',
   templateUrl: './cliente-list.component.html',
@@ -52,8 +52,9 @@ export class ClienteListComponent implements OnInit {
    Recibe una varible de tipo 'cliente' para invocar el servicio de firebase, para actualizarlo
    Para no ocupar el doble enlace de datos ' [(ngModel)]' , se va utilizar 'Object.assign({}, cliente)'  
   */
-  onEdit(cliente: Cliente) {
-    this.clienteService.selectedcliente = Object.assign({}, cliente);
+  onEdit(cliente: Cliente, cuenta : Cuenta) {
+    cuenta.nombre='${cliente.lastName},${cliente.name}';
+    this.clienteService.selectedcliente = Object.assign({}, cliente,cuenta);
   }
 
   /* 
